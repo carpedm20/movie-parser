@@ -50,8 +50,21 @@ class Review(Item):
 class NxvxrSpider(Spider):
     name = "nxvxr"
     allowed_domains = ["naver.com"]
-    start_urls = after_movie_urls + before_movie_urls
+    #start_urls = after_movie_urls + before_movie_urls
     #start_urls = after_movie_urls[:3]
+    start_urls = []
+
+    def __init__(self, start_index='0'):
+        self.start_index = int(start_index)
+
+        urls = after_movie_urls + before_movie_urls
+        s_idx = len(urls)/20 * self.start_index
+        e_idx = len(urls)/20 * (self.start_index + 1)
+
+        if start_index != '19':
+            self.start_urls = urls[s_idx:e_idx]
+        else:
+            self.start_urls = urls[s_idx:]
 
     def parse(self, response):
         print response.url
