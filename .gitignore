@@ -1,6 +1,8 @@
 *.pyc
 *.tar*
+*.cache*
 *.jar
 *.json
+*.vw
 *.sql
 *.sqlite3

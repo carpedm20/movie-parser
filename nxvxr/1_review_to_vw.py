@@ -1,27 +1,41 @@
-#!/usr/bin/python
+#!/usr/bin/python2.7
+#-*- coding: utf-8 -*-
+import re
 import sys
 import json
+import codecs
 
-if len(sys.argv) < 2:
-    print "Error: file name needed"
-    sys.exit(1)
-
-with open(sys.argv[1]) as f:
-    j = json.loads(f.read())
-
-output = "vw_" + sys.argv[1]
-print output
+from utils import get_review_list
+reviews = get_review_list()
 
 def clean(s):
-    #return " ".join(re.findall(r'\w+', s, flags=re.UNICODE|re.LOCALE)).lower()
-    return " ".join(s.split())
+    s = s.encode('utf-8')
+    try:
+        return " ".join(re.findall(r'[가-힣\w]+', s, flags=re.UNICODE|re.LOCALE)).decode('utf-8').lower()
+    except:
+        #print "Error : %s" % s
+        return False
+    #return " ".join(s.split())
 
-with open(output,'w') as outfile:
-    for review in j:
+output = "train.vw"
+
+import progressbar
+bar = progressbar.ProgressBar(maxval=len(reviews), \
+            widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
+
+print " * Start creating %s" % output
+with codecs.open(output, 'w', encoding='utf-8') as outfile:
+    for idx, review in enumerate(reviews):
+        bar.update(idx+1)
         code = review['code']
-        point = review['point']
-        text = clean(review['text'].encode('utf-8'))
+        point = review['point']/2 or 1
+        text = clean(review['text'])
+        if not text:
+            continue
         encrypted_id = review['encrypted_id']
 
-        outfile.write("%s '%s |f %s |u userid: %s |a word_count: %s\n"
-                % (point, code, text, encrypted_id, str(text.count(" ")+1)))
+        outfile.write("%s '%s |f %s |a word_count:%s\n"
+                % (point, code, text, len(text)))
+
+bar.finish()
+print " * Finished * \n"
