@@ -17,17 +17,33 @@ from scrapy.spider import Spider
 # before : before release
 # onlyActualPoint : 
 
-with open('total_movie_list.json') as f:
-    movie_dict = json.loads(f.read())
+# Only for famous movies
+#with open('total_movie_list.json') as f:
+#    movie_dict = json.loads(f.read())
+#movie_codes = [url[url.find('code=')+5:] for url in movie_dict.keys()]
 
-movie_codes = [url[url.find('code=')+5:] for url in movie_dict.keys()]
+# Except for famous movies
+with open('all_codes_except_famous.json') as f:
+    movie_dict = json.loads(f.read())
+movie_codes = movie_dict
+
+# Create new code list except total_movie_list.json
+#all_codes_except_famous = [i for i in range(130060) if str(i) not in movie_codes]
+#with open('all_codes_except_famous.json','w') as f:
+#    json.dump(all_codes_except_famous, f)
 
 BASE_URL = "http://m.movie.naver.com/m/endpage/movie/PointListJson.nhn?movieCode=%s&target=%s&onlyActualPoint=%s&order=sympathyScore&page=0"
 
 onlyActualPoint = 'false'
 
+# Only for famous movies
+#after_movie_urls = [BASE_URL % (code, 'after', onlyActualPoint) for code in movie_codes]
+#before_movie_urls = [BASE_URL % (code, 'before', onlyActualPoint) for code in movie_codes]
+
+# Except for famous movies
 after_movie_urls = [BASE_URL % (code, 'after', onlyActualPoint) for code in movie_codes]
 before_movie_urls = [BASE_URL % (code, 'before', onlyActualPoint) for code in movie_codes]
+
 
 class Review(Item):
     # define the fields for your item here like:
@@ -48,7 +64,7 @@ class Review(Item):
         return "[%s] %s" % (self.code, self.page)
 
 class NxvxrSpider(Spider):
-    name = "nxvxr"
+    name = "nxvxr2"
     allowed_domains = ["naver.com"]
     #start_urls = after_movie_urls + before_movie_urls
     #start_urls = after_movie_urls[:3]
@@ -58,10 +74,10 @@ class NxvxrSpider(Spider):
         self.start_index = int(start_index)
 
         urls = after_movie_urls + before_movie_urls
-        s_idx = len(urls)/101 * self.start_index
-        e_idx = len(urls)/101 * (self.start_index + 1)
+        s_idx = len(urls)/1301 * self.start_index
+        e_idx = len(urls)/1301 * (self.start_index + 1)
 
-        if start_index != '100':
+        if start_index != '1300':
             self.start_urls = urls[s_idx:e_idx]
         else:
             self.start_urls = urls[s_idx:]
