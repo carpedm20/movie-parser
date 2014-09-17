@@ -3,6 +3,7 @@
 *.cache*
 *.jar
 *.json
-*.vw
+*.vw*
+*backup*
 *.sql
 *.sqlite3
