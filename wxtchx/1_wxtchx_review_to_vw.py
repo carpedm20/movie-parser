@@ -28,11 +28,11 @@ with codecs.open(output, 'w', encoding='utf-8') as outfile:
     for idx, review in enumerate(reviews):
         bar.update(idx+1)
         code = review['code']
-        point = review['point']/2 or 1
-        text = clean(review['text'])
+        point = review['star']/2 or 1
+        text = clean(review['review'])
         if not text:
             continue
-        encrypted_id = review['encrypted_id']
+        encrypted_id = review['id']
 
         outfile.write("%s '%s |f %s |a word_count:%s\n"
                 % (point, code, text, len(text)))

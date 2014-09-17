@@ -14,21 +14,21 @@ review_list = get_nxvxr_review_list(COUNT)
 c = Counter([review['code'] for review in review_list])
 print "# of movies with reviews : %s" % "{:,}".format(len(c))
 print "# of reviews : %s" % "{:,}".format(len(review_list))
-print "# of unique reviews : %s" % "{:,}".format(len(list(set([review['text'] for review in review_list]))))
+print "# of unique reviews : %s" % "{:,}".format(len(list(set([review['review'] for review in review_list]))))
 
 if VERBOSE:
     print "Top Movies with the most reviews"
     pprint.pprint(c.most_common(20))
 
 if VERBOSE:
-    user_list = [review['encrypted_id'] for review in review_list]
+    user_list = [review['id'] for review in review_list]
     print "# of reviewer : %s" % len(set(user_list))
 
     c = Counter(user_list)
     pprint.pprint(c.most_common(20))
 
 if True:
-    word_list = [review['text'].split() for review in review_list]
+    word_list = [review['review'].split() for review in review_list]
     word_list = [word for words in word_list for word in words]
 
     print "# of all words : %s" % "{:,}".format(len(word_list))
