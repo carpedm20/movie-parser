@@ -12,6 +12,7 @@ test:
 	vw test2.vw -t -i model.vw -p pred.vw
 	# large wxtchx test
 	#vw watcha_train.vw -t -i model.vw -p pred_large.vw
+	./3_visualize_sample.py test2.vw pred.vw
 
 sample:
 	# wxtchx sample test

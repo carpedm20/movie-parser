@@ -5,8 +5,8 @@ import sys
 import json
 import codecs
 
-from utils import get_review_list
-reviews = get_review_list()
+from utils import get_nxvxr_review_list
+reviews = get_nxvxr_review_list()
 
 def clean(s):
     s = s.encode('utf-8')

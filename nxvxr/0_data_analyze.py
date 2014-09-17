@@ -4,12 +4,12 @@ import sys, os
 import pprint
 from collections import Counter
 
-from utils import get_review_list
+from utils import get_nxvxr_review_list
 
 VERBOSE = False
 COUNT = 3
 
-review_list = get_review_list(COUNT)
+review_list = get_nxvxr_review_list(COUNT)
 
 c = Counter([review['code'] for review in review_list])
 print "# of movies with reviews : %s" % "{:,}".format(len(c))
