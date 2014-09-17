@@ -17,11 +17,11 @@ def clean(s):
         return False
     #return " ".join(s.split())
 
-output = "train.vw"
-
 import progressbar
 bar = progressbar.ProgressBar(maxval=len(reviews), \
             widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
+
+output = "train.vw"
 
 print " * Start creating %s" % output
 with codecs.open(output, 'w', encoding='utf-8') as outfile:

@@ -1,3 +1,6 @@
+init:
+	./0_data_analyze.py
+	./1_review_to_vw.py
 train:
 	time vw train.vw -c -k --cache_file test.cache --passes 10 --ngram 7 -b 30 --ect 5 -f model.vw --compressed
 
