@@ -3,7 +3,7 @@ import sys
 import random
 
 if len(sys.argv) < 2:
-    train_name = "watcha_train.vw"
+    train_name = "wxtchx_train.vw"
 else:
     train_name = sys.argv[1]
 
