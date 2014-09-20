@@ -3,7 +3,9 @@ init:
 	./2_review_to_vw.py
 train:
 	# 1. Train with nxvxr
-	#time vw nxvxr_train.vw -c -k --cache_file test.cache --passes 10 --ngram 7 -b 30 --ect 5 -f nxvxr_model.vw --compressed
+	time vw nxvxr_train.vw -c -k --cache_file test.cache --passes 10 --ngram 7 -b 30 --ect 5 -f nxvxr_model.vw --compressed
+
+train2:
 	# 2. Train with wxtchx
 	time vw wxtchx_train.vw -c -k --cache_file test.cache --passes 10 --ngram 7 -b 30 --ect 5 -f wxtchx_model.vw --compressed
 
