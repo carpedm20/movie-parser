@@ -14,14 +14,16 @@ test:
 	# 1. small test (nxvxr)
 	#vw test.vw -t -i nxvxr_model.vw -p pred.vw
 	# 2. small test2 (nxvxr)
-	vw test2.vw -t -i nxvxr_model.vw -p n_pred.vw
+	#vw test2.vw -t -i nxvxr_model.vw -p n_pred.vw
 	# 3. large wxtchx test (nxvxr)
-	#vw watcha_train.vw -t -i nxvxr_model.vw -p pred_large.vw
+	vw wxtchx_train.vw -t -i nxvxr_model.vw -p t_w_with_n_pred_large.vw
 	./4_visualize_sample.py test2.vw n_pred.vw
 
 test2:
 	# 1. small test2 (wxtchx)
-	vw test2.vw -t -i wxtchx_model.vw -p w_pred.vw
+	#vw test2.vw -t -i wxtchx_model.vw -p w_pred.vw
+	# 2. large wxtchx test (wxtchx)
+	vw nxvxr_train.vw -t -i wxtchx_model.vw -p t_n_with_w_pred_large.vw
 	# 0. print result
 	./4_visualize_sample.py test2.vw w_pred.vw
 

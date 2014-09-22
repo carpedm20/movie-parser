@@ -14,5 +14,13 @@ for f_name in files:
 
 review_fs.sort()
 
-for f in review_fs:
+reviews = []
+for review_f in review_fs:
+    print "READING %s" % review_f
+    with open(review_f) as f:
+        reviews.extend(json.loads(f.read()))
+
+#output = 'merged_auto_spaced_n_review.json'
+#with open(output,'w') as f:
+#    json.dump(reviews, f)
 

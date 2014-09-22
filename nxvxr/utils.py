@@ -16,7 +16,25 @@ def auto_spacing(text):
     soup = BeautifulSoup(r.text)
     div = soup.find('div', {'class':'wrap_spacing2'}).findChild()
 
-    return str(div).replace('<p>\n','').replace('<strong>','').replace('</strong>','')
+    return str(div).strip().replace('<p>\n','').replace('<strong>','').replace('</strong>','')
+
+def get_auto_spaced_review():
+    print " * Start reading auto_spaced reviews * "
+
+    files = [f for f in os.listdir('.')]
+    review_fs = []
+
+    for f_name in files:
+        if 'auto_spaced_review' in f_name:
+            review_fs.append(f_name)
+
+    review_fs.sort()
+
+    reviews = []
+    for review_f in review_fs:
+        print "READING %s" % review_f
+        with open(review_f) as f:
+            reviews.extend(json.loads(f.read()))
 
 def get_nxvxr_review_list(count=-1):
     print " * Start making reviews * "

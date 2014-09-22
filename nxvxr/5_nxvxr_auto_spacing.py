@@ -3,11 +3,14 @@
 import json
 from utils import get_nxvxr_review_list, auto_spacing
 
-reviews = get_nxvxr_review_list()
+reviews = get_nxvxr_review_list(20)
 texts = [review['text'] for review in reviews]
 
-START_IDX = 29460
+START_IDX = 0
 VERBOSE = False
+TEST = True
+
+output = 'auto_spaced_review_'+str(START_IDX)+'-%s.json'
 
 texts = texts[START_IDX:]
 
@@ -25,7 +28,7 @@ try:
         bar.update(idx+1)
 
         data += text+'\r\n'
-        if len(data) < 10000:
+        if len(data) < 1000000:
             continue
 
         new_text = auto_spacing(data).split('<br>')
@@ -44,17 +47,20 @@ try:
 
         data = ""
         start_idx = idx+1
+
+        if TEST:
+            break
 except Exception as e:
     if VERBOSE:
         print "=== 2 ==="
         print e
 
     is_saved = True
-    with open('auto_spaced_review_'+str(START_IDX)+'-'+str(idx)+'.json','w') as f:
+    with open(output % idx,'w') as f:
         json.dump(reviews, f)
 
 bar.finish()
 
 if not is_saved:
-    with open('auto_spaced_review_'+str(START_IDX)+'.json','w') as f:
+    with open(output % idx,'w') as f:
         json.dump(reviews, f)
