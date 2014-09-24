@@ -7,7 +7,7 @@ train:
 
 train-info:
 	# 1. Train with nxvxr
-	time vw-varinfo nxvxr_train.vw -c -k --cache_file test.cache --passes 13 --ngram 7 -b 30 --ect 5 -f nxvxr_model.vw --compressed > varinfo.txt
+	time ~/bin/vw-varinfo -c -k --passes 13 --ngram 7 -b 30 nxvxr_train.vw > varinfo.txt
 
 train2:
 	# 2. Train with wxtchx
@@ -15,7 +15,7 @@ train2:
 
 train-info2::
 	# 1. Train with nxvxr
-	time vw-varinfo wxtchx_train.vw -c -k --cache_file test.cache --passes 13 --ngram 7 -b 30 --ect 5 -f nxvxr_model.vw --compressed > varinfo.txt
+	time ~/bin/vw-varinfo -c -k --passes 13 --ngram 7 -b 30 wxtchx_train.vw > varinfo.txt
 
 test:
 	#vw -t --cache_file test.cache -i nxvxr_model.vw -p test.vw
